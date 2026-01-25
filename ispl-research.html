@@ -147,6 +147,44 @@
                 </ul>
                 <img src="model_architecture.png" alt="Model Architecture" style="max-width: 100%; height: auto; margin-top: 20px;">
             </section>
+            <!-- Results -->
+            <section>
+                <h2>Results</h2>
+                <p>
+                    Our proposed model demonstrates significant improvements in speech enhancement metrics across key performance indicators: With the enhancement model achieving a STOI of
+                    0.927 and a PESQ of 3.651, compared to the noisy input's STOI of 0.911 and PESQ of 2.894.
+                </p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="background: #ff0000; color: white;">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Method</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">STOI (↑)</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">PESQ (↑)</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Loss (↓)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 12px; border: 1px solid #ddd;color:#ff0000"><strong>Noisy Input</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>0.911 ± 0.07</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>2.894 ± 0.75</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>3.9903</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid #ddd;color:#ff0000"><strong>Proposed Model</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>0.927 ± 0.06</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>3.651 ± 0.59</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;color:#ff0000"><strong>0.7321</strong></td>
+                        </tr>
+                        <tr style="background: #f0f0f0; color: #ff0000;">
+                            <td style="padding: 12px; border: 1px solid #ddd;"><strong>Improvement</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"><strong>+0.017</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"><strong>+0.756</strong></td>
+                            <td style="padding: 12px; text-align: center; border: 1px solid #ddd;"><strong>-3.2583</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
             <!-- Inference Clips -->
             <section>
@@ -154,19 +192,19 @@
 
                 <!-- Clip 1 -->
                 <div class="clip-section">
-                    <h3>Sample 1: Highway Noise</h3>
+                    <h3>Sample 1</h3>
                     <div class="audio-comparison">
                         <div class="audio-item">
                             <h3>🔊 Noisy</h3>
                             <audio controls>
-                                <source src="audio/sample1_noisy.wav" type="audio/wav">
+                                <source src="audio/stuck.mp3" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
                         <div class="audio-item">
                             <h3>✨ Enhanced</h3>
                             <audio controls>
-                                <source src="audio/sample1_clean.wav" type="audio/wav">
+                                <source src="audio/stuck.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
@@ -175,19 +213,19 @@
 
                 <!-- Clip 2 -->
                 <div class="clip-section">
-                    <h3>Sample 2: Engine Noise</h3>
+                    <h3>Sample 2</h3>
                     <div class="audio-comparison">
                         <div class="audio-item">
                             <h3>🔊 Noisy</h3>
                             <audio controls>
-                                <source src="audio/sample2_noisy.wav" type="audio/wav">
+                                <source src="audio/embarassment_.mp3" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
                         <div class="audio-item">
                             <h3>✨ Enhanced</h3>
                             <audio controls>
-                                <source src="audio/sample2_clean.wav" type="audio/wav">
+                                <source src="audio/embarassment.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
@@ -196,19 +234,19 @@
 
                 <!-- Clip 3 -->
                 <div class="clip-section">
-                    <h3>Sample 3: Wind Noise</h3>
+                    <h3>Sample 3</h3>
                     <div class="audio-comparison">
                         <div class="audio-item">
                             <h3>🔊 Noisy</h3>
                             <audio controls>
-                                <source src="audio/sample3_noisy.wav" type="audio/wav">
+                                <source src="audio/entertained.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
                         <div class="audio-item">
                             <h3>✨ Enhanced</h3>
                             <audio controls>
-                                <source src="audio/sample3_clean.wav" type="audio/wav">
+                                <source src="audio/entertained_output.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
