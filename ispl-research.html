@@ -4,8 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalized Speech Enhancement-iSPL lab</title>
+    <title>Personalized Speech Enhancement - iSPL Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #9E1B32; /* Elegant KNU Crimson */
+            --primary-light: #FCE8EB;
+            --dark-slate: #0f172a;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            
+            /* Audio status colors */
+            --badge-noisy: #64748b;
+            --badge-ref: #0284c7;
+            --badge-output: #9E1B32;
+            --badge-gt: #16a34a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,102 +34,239 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
-            color: #fff;
-            background: #ff0000; /* Bright red background */
-            min-height: 100vh;
-            padding: 20px;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            padding: 40px 20px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: #fff; /* White background for container */
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 10px 15px -3px rgb(0 0 0 / 0.05);
             overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
+        /* Hero / Header Section */
         header {
-            background: #ff0000; /* Bright red header */
+            background: linear-gradient(135deg, var(--dark-slate) 0%, #1e293b 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 60px 40px;
             text-align: center;
+            position: relative;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        header ::selection {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lab-title {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.2;
         }
 
+        h1 span {
+            color: #fca5a5;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Main Content Container */
         .content {
-            padding: 40px;
+            padding: 50px 40px;
         }
 
         section {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+        }
+
+        section:last-child {
+            margin-bottom: 0;
         }
 
         h2 {
-            color: #ff0000; /* Bright red for section headers */
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            border-bottom: 2px solid #ff0000; /* Bright red border */
-            padding-bottom: 10px;
+            color: var(--dark-slate);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
         }
 
-        p {
-            margin-bottom: 15px;
-            color: #333;
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
         }
 
+        /* Dynamic Grid Layout for Audio Samples */
+        .clip-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .clip-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgb(0 0 0 / 0.05);
+        }
+
+        .clip-section h3 {
+            color: var(--dark-slate);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: var(--bg-main);
+            padding: 4px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Intelligent dynamic column mapping based on card counts */
         .audio-comparison {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .audio-item h3 {
-            color: #ff0000; /* Bright red for audio item titles */
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
         .audio-item {
-            text-align: center;
+            background: var(--bg-main);
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Stylized Header Badges inside Audio Cards */
+        .audio-item h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .audio-item.noisy h4 { color: var(--badge-noisy); }
+        .audio-item.reference h4 { color: var(--badge-ref); }
+        .audio-item.output h4 { color: var(--badge-output); }
+        .audio-item.gt h4 { color: var(--badge-gt); }
+
+        .audio-item h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .audio-item.noisy h4::before { background-color: var(--badge-noisy); }
+        .audio-item.reference h4::before { background-color: var(--badge-ref); }
+        .audio-item.output h4::before { background-color: var(--badge-output); box-shadow: 0 0 8px var(--primary); }
+        .audio-item.gt h4::before { background-color: var(--badge-gt); }
+
+        /* Highlight the actual Model Output to stand out */
+        .audio-item.output {
+            border: 1.5px solid rgba(158, 27, 50, 0.2);
+            background-color: rgb(158 27 50 / 0.02);
         }
 
         audio {
             width: 100%;
-            margin-top: 10px;
-            outline: none;
+            margin-top: 8px;
+            height: 40px;
         }
 
-        .clip-section {
-            margin-bottom: 40px;
-            border-left: 4px solid #ff0000; /* Bright red border */
-            padding-left: 20px;
+        /* Acknowledgements Styling */
+        .acknowledgements-card {
+            background: var(--bg-main);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
         }
 
-        .clip-section h3 {
-            color: #333;
+        .acknowledgements-card p {
+            color: var(--text-light);
             margin-bottom: 20px;
-            font-size: 1.3em;
+            font-size: 0.95rem;
         }
 
-        @media (max-width: 768px) {
-            .audio-comparison {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+        .credits-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
 
+        .credits-list li {
+            background: var(--card-bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .credits-list strong {
+            color: var(--dark-slate);
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            header {
+                padding: 40px 20px;
+            }
             h1 {
-                font-size: 1.8em;
+                font-size: 1.75rem;
+            }
+            .content {
+                padding: 30px 16px;
+            }
+            .clip-section {
+                padding: 16px;
             }
         }
     </style>
@@ -117,36 +275,34 @@
 <body>
     <div class="container">
         <header>
-            <h1>iSPL Lab-Kyungpook National University</h1>
-            <h1>Personalized Speech Enhancement-TRUMP model</h1>
-            <p>Joint suppression of competing speakers and ambient noise</p>
+            <div class="lab-title">iSPL Lab &bull; Kyungpook National University</div>
+            <h1>Personalized Speech Enhancement: <span>TS-PSE Model</span></h1>
+            <p>Joint suppression of competing speakers and ambient noise environments</p>
         </header>
 
         <div class="content">
-            <!-- Inference Clips -->
             <section>
-                <h2>Results Samples</h2>
+                <h2>Results & Audio Samples</h2>
 
-                <!-- Clip 1 -->
                 <div class="clip-section">
                     <h3>Sample 1</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/1.mp3" type="audio/mp3">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/1ref_1.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/1en1.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -155,61 +311,32 @@
                     </div>
                 </div>
 
-                                <!-- Clip 1 -->
-                <!-- <div class="clip-section">
+                <div class="clip-section">
                     <h3>Sample 2</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
-                            <audio controls>
-                                <source src="demo_samples/1.mp3" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
-                            <audio controls>
-                                <source src="demo_samples/1ref_2.wav" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
-                            <audio controls>
-                                <source src="demo_samples/1en2.wav" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-                    </div> -->
-                <!-- </div> -->
-
-                                <!-- Clip 1 -->
-                <div class="clip-section">
-                    <h3>Sample 3</h3>
-                    <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/2_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/2_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/2_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
+                        <div class="audio-item gt">
+                            <h4>Ground Truth</h4>
                             <audio controls>
                                 <source src="demo_samples/2_clean.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -218,33 +345,32 @@
                     </div>
                 </div>
 
-                                <!-- Clip 1 -->
                 <div class="clip-section">
-                    <h3>Sample 4</h3>
+                    <h3>Sample 3</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/44_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/44_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/44_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
+                        <div class="audio-item gt">
+                            <h4>Ground Truth</h4>
                             <audio controls>
                                 <source src="demo_samples/44_clean.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -253,68 +379,59 @@
                     </div>
                 </div>
 
-                                <!-- Clip 1 -->
                 <div class="clip-section">
-                    <h3>Sample 5</h3>
+                    <h3>Sample 4</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/7_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/7_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/7_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <!-- <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
-                            <audio controls>
-                                <source src="demo_samples/" type="audio/wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div> -->
                     </div>
                 </div>
 
-                                <!-- Clip 1 -->
                 <div class="clip-section">
-                    <h3>Sample 6</h3>
+                    <h3>Sample 5</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/119_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/119_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/119_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
+                        <div class="audio-item gt">
+                            <h4>Ground Truth</h4>
                             <audio controls>
                                 <source src="demo_samples/119_clean.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -323,33 +440,32 @@
                     </div>
                 </div>
 
-                                <!-- Clip 1 -->
                 <div class="clip-section">
-                    <h3>Sample 7</h3>
+                    <h3>Sample 6</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/593_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/593_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/593_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
+                        <div class="audio-item gt">
+                            <h4>Ground Truth</h4>
                             <audio controls>
                                 <source src="demo_samples/593_clean.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -359,31 +475,31 @@
                 </div>
 
                 <div class="clip-section">
-                    <h3>Sample 8</h3>
+                    <h3>Sample 7</h3>
                     <div class="audio-comparison">
-                        <div class="audio-item">
-                            <h3>🔊 Noisy Mixture</h3>
+                        <div class="audio-item noisy">
+                            <h4>Noisy Mixture</h4>
                             <audio controls>
                                 <source src="demo_samples/599_noisy.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>🔊 Target Speaker reference</h3>
+                        <div class="audio-item reference">
+                            <h4>Target Speaker Reference</h4>
                             <audio controls>
                                 <source src="demo_samples/599_ref.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Model Output</h3>
+                        <div class="audio-item output">
+                            <h4>Model Output (TS-PSE)</h4>
                             <audio controls>
                                 <source src="demo_samples/599_enhanced.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
-                        <div class="audio-item">
-                            <h3>✨ Ground Truth</h3>
+                        <div class="audio-item gt">
+                            <h4>Ground Truth</h4>
                             <audio controls>
                                 <source src="demo_samples/599_clean.wav" type="audio/wav">
                                 Your browser does not support the audio element.
@@ -391,20 +507,29 @@
                         </div>
                     </div>
                 </div>
-
             </section>
 
-            <!-- credits(acknowledgements) -->
             <section>
                 <h2>Acknowledgements</h2>
-                <p>We would like to express our sincere gratitude to the following individuals and organizations for their invaluable contributions to this research:</p>
-                <ul style="color: red">
-                    <li><strong>Prof. Han Dong Seog</strong> - For his insightful feedback and guidance throughout the project.</li>
-                    <li><strong>Kyungpook National University</strong> - For providing the necessary resources and support for our research.</li>
-                    <li><strong>Librispeech, VCTK, DEMAND, vehicle sounds</strong> - For supplying the high-quality audio samples used in our experiments.</li>
-                </ul>
-                <p>We also extend our thanks to the broader research community for their ongoing efforts in advancing the field of speech enhancement.</p>
-
+                <div class="acknowledgements-card">
+                    <p>We express our sincere gratitude to the following individuals and organizations for their invaluable contributions, feedback, and resource access supporting this research pipeline:</p>
+                    <ul class="credits-list">
+                        <li>
+                            <strong>Prof. Han Dong Seog</strong>
+                            For providing continuous expert feedback, resources, and structural guidance throughout this project's lifecycles.
+                        </li>
+                        <li>
+                            <strong>Kyungpook National University</strong>
+                            For offering advanced computational lab clusters and systems infrastructure necessary for handling extensive training configurations.
+                        </li>
+                        <li>
+                            <strong>Open-Source Audio Corpora</strong>
+                            High-quality foundational benchmarking sets provided via Librispeech, VCTK, DEMAND, and various operational vehicle sound banks.
+                        </li>
+                    </ul>
+                    <p style="margin-bottom: 0; font-style: italic;">We also extend our appreciation to the broader speech, audio, and signal processing communities for pushing ahead modern architectures in interactive AI.</p>
+                </div>
+            </section>
         </div>
     </div>
 </body>
