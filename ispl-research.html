@@ -8,10 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
-            --primary: #9E1B32; /* Elegant KNU Crimson */
+            --primary: #9E1B32;
+            /* Elegant KNU Crimson */
             --primary-light: #FCE8EB;
             --dark-slate: #0f172a;
             --text-main: #334155;
@@ -19,7 +20,7 @@
             --bg-main: #f8fafc;
             --card-bg: #ffffff;
             --border-color: #e2e8f0;
-            
+
             /* Audio status colors */
             --badge-noisy: #64748b;
             --badge-ref: #0284c7;
@@ -184,10 +185,21 @@
             letter-spacing: 0.02em;
         }
 
-        .audio-item.noisy h4 { color: var(--badge-noisy); }
-        .audio-item.reference h4 { color: var(--badge-ref); }
-        .audio-item.output h4 { color: var(--badge-output); }
-        .audio-item.gt h4 { color: var(--badge-gt); }
+        .audio-item.noisy h4 {
+            color: var(--badge-noisy);
+        }
+
+        .audio-item.reference h4 {
+            color: var(--badge-ref);
+        }
+
+        .audio-item.output h4 {
+            color: var(--badge-output);
+        }
+
+        .audio-item.gt h4 {
+            color: var(--badge-gt);
+        }
 
         .audio-item h4::before {
             content: '';
@@ -197,10 +209,22 @@
             border-radius: 50%;
         }
 
-        .audio-item.noisy h4::before { background-color: var(--badge-noisy); }
-        .audio-item.reference h4::before { background-color: var(--badge-ref); }
-        .audio-item.output h4::before { background-color: var(--badge-output); box-shadow: 0 0 8px var(--primary); }
-        .audio-item.gt h4::before { background-color: var(--badge-gt); }
+        .audio-item.noisy h4::before {
+            background-color: var(--badge-noisy);
+        }
+
+        .audio-item.reference h4::before {
+            background-color: var(--badge-ref);
+        }
+
+        .audio-item.output h4::before {
+            background-color: var(--badge-output);
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .audio-item.gt h4::before {
+            background-color: var(--badge-gt);
+        }
 
         /* Highlight the actual Model Output to stand out */
         .audio-item.output {
@@ -256,15 +280,19 @@
             body {
                 padding: 10px;
             }
+
             header {
                 padding: 40px 20px;
             }
+
             h1 {
                 font-size: 1.75rem;
             }
+
             .content {
                 padding: 30px 16px;
             }
+
             .clip-section {
                 padding: 16px;
             }
@@ -544,7 +572,7 @@
                         </div> -->
                     </div>
                     <!-- 2 -->
-                     
+
                 </div>
 
                 <div class="clip-section">
@@ -580,11 +608,11 @@
                         </div> -->
                     </div>
                     <!-- 2 -->
-                     
+
                 </div>
 
 
-                                <div class="clip-section">
+                <div class="clip-section">
                     <h3>Sample 2</h3>
                     <div class="audio-comparison">
                         <div class="audio-item noisy">
@@ -597,7 +625,7 @@
                         <div class="audio-item reference">
                             <h4>Target Speaker Reference</h4>
                             <audio controls>
-                                <source src="tinypse/01_reference.wav" type="audio/wav">
+                                <source src="tinypse/02_reference.wav" type="audio/wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </div>
@@ -617,10 +645,10 @@
                         </div> -->
                     </div>
                     <!-- 2 -->
-                     
+
                 </div>
 
-                                <div class="clip-section">
+                <div class="clip-section">
                     <h3>Sample 3</h3>
                     <div class="audio-comparison">
                         <div class="audio-item noisy">
@@ -653,29 +681,35 @@
                         </div> -->
                     </div>
                     <!-- 2 -->
-                     
+
                 </div>
             </section>
 
             <section>
                 <h2>Acknowledgements</h2>
                 <div class="acknowledgements-card">
-                    <p>We express our sincere gratitude to the following individuals and organizations for their invaluable contributions, feedback, and resource access supporting this research pipeline:</p>
+                    <p>We express our sincere gratitude to the following individuals and organizations for their
+                        invaluable contributions, feedback, and resource access supporting this research pipeline:</p>
                     <ul class="credits-list">
                         <li>
                             <strong>Prof. Han Dong Seog</strong>
-                            For providing continuous expert feedback, resources, and structural guidance throughout this project's lifecycles.
+                            For providing continuous expert feedback, resources, and structural guidance throughout this
+                            project's lifecycles.
                         </li>
                         <li>
                             <strong>Kyungpook National University</strong>
-                            For offering advanced computational lab clusters and systems infrastructure necessary for handling extensive training configurations.
+                            For offering advanced computational lab clusters and systems infrastructure necessary for
+                            handling extensive training configurations.
                         </li>
                         <li>
                             <strong>Open-Source Audio Corpora</strong>
-                            High-quality foundational benchmarking sets provided via Librispeech, VCTK, DEMAND, and various operational vehicle sound banks.
+                            High-quality foundational benchmarking sets provided via Librispeech, VCTK, DEMAND, and
+                            various operational vehicle sound banks.
                         </li>
                     </ul>
-                    <p style="margin-bottom: 0; font-style: italic;">We also extend our appreciation to the broader speech, audio, and signal processing communities for pushing ahead modern architectures in interactive AI.</p>
+                    <p style="margin-bottom: 0; font-style: italic;">We also extend our appreciation to the broader
+                        speech, audio, and signal processing communities for pushing ahead modern architectures in
+                        interactive AI.</p>
                 </div>
             </section>
         </div>
